@@ -1,0 +1,18 @@
+#/user/bin/expect
+spawn scp -P 22 -r root@192.128.75.128:/etc/* /var/jenkins_home/
+set timeout 20
+expect {
+    "(yes/no)?"{
+        send "yes\n"
+        expect "*password:"{
+            send "admin@123\n"
+	    }
+    }
+    "*password:"{
+        send "admin@123\n"
+    }
+}
+expect "100%"
+
+
+expect eof

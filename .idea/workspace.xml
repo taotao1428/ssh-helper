@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2b22e4d7-ecdb-49ca-9083-f7f4e762d55c" name="Changes" comment=".gitignore">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/action/Action.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/action/BatchAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/action/ExitAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/action/ExpectAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/action/NoneAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/action/SendAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/action/SetTimeoutAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/action/matcher/Matcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/action/matcher/RegexMatcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/action/matcher/StringMatcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/action/matcher/TimeoutMatcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/channel/DefaultSshChannel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/channel/Environment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/channel/ReadableOutputStream.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/channel/SshChannel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/parse/Parser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/parse/TokenReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/parse/Tokenizer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/parse/token/Token.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/parse/token/TokenType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hewutao/ssh/utils/ThreadUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/test.expect" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/test2.expect" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/hewutao/ssh/MainTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/hewutao/ssh/parse/TokenizerTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="JUnit4 Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="workspaceImportEnabled" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectId" id="2Nu4lzrytEXoYnjyv27FJ0t4kln" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.hewutao.ssh.parse" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.TokenizerTest.parse">
+    <configuration name="MainTest.testAction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ssh-helper" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hewutao.ssh.channel.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hewutao.ssh" />
+      <option name="MAIN_CLASS_NAME" value="com.hewutao.ssh.MainTest" />
+      <option name="METHOD_NAME" value="testAction" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainTest.testClient" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ssh-helper" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hewutao.ssh.channel.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hewutao.ssh" />
+      <option name="MAIN_CLASS_NAME" value="com.hewutao.ssh.MainTest" />
+      <option name="METHOD_NAME" value="testClient" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainTest.testSsh" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ssh-helper" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hewutao.ssh.channel.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hewutao.ssh" />
+      <option name="MAIN_CLASS_NAME" value="com.hewutao.ssh.MainTest" />
+      <option name="METHOD_NAME" value="testSsh" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TokenizerTest.next" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ssh-helper" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hewutao.ssh.parse.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hewutao.ssh.parse" />
+      <option name="MAIN_CLASS_NAME" value="com.hewutao.ssh.parse.TokenizerTest" />
+      <option name="METHOD_NAME" value="next" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TokenizerTest.parse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ssh-helper" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hewutao.ssh.parse.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hewutao.ssh.parse" />
+      <option name="MAIN_CLASS_NAME" value="com.hewutao.ssh.parse.TokenizerTest" />
+      <option name="METHOD_NAME" value="parse" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TokenizerTest.parse" />
+        <item itemvalue="JUnit.TokenizerTest.next" />
+        <item itemvalue="JUnit.MainTest.testAction" />
+        <item itemvalue="JUnit.MainTest.testClient" />
+        <item itemvalue="JUnit.MainTest.testSsh" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2b22e4d7-ecdb-49ca-9083-f7f4e762d55c" name="Changes" comment="" />
+      <created>1680500789234</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1680500789234</updated>
+      <workItem from="1680500790517" duration="3997000" />
+      <workItem from="1680507179794" duration="45057000" />
+    </task>
+    <task id="LOCAL-00001" summary=".gitignore">
+      <created>1680626634689</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1680626634689</updated>
+    </task>
+    <task id="LOCAL-00002" summary=".gitignore">
+      <created>1680626861145</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1680626861145</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value=".gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value=".gitignore" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/apache/sshd/sshd-core/2.9.2/sshd-core-2.9.2-sources.jar!/org/apache/sshd/client/session/ClientUserAuthService.java</url>
+          <line>292</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/hewutao/ssh/parse/Parser.java</url>
+          <line>93</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/hewutao/ssh/parse/TokenReader.java</url>
+          <line>75</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

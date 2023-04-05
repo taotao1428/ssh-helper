@@ -4,6 +4,7 @@ import com.hewutao.ssh.channel.DefaultSshChannel;
 import com.hewutao.ssh.channel.Environment;
 import com.hewutao.ssh.action.Action;
 import com.hewutao.ssh.parse.token.Token;
+import com.hewutao.ssh.parse.token.TokenType;
 import org.junit.Test;
 
 public class TokenizerTest {
@@ -24,12 +25,12 @@ public class TokenizerTest {
                 "        send \"admin@123\\n\"\n" +
                 "    }\n" +
                 "}\n" +
-                "expect \"100%\"\n\n\n\r" +
+                "expect \"100%\"\n\n\n" +
                 "expect eof";
 
         Tokenizer tokenizer = new Tokenizer(data);
         Token token;
-        while ((token = tokenizer.next()) != null) {
+        while ((token = tokenizer.next()).getType() != TokenType.EOF) {
             System.out.println(token);
         }
     }
@@ -65,7 +66,7 @@ public class TokenizerTest {
                 "    send \"whoami\\n\"\n" +
                 "}\n" +
                 "\n" +
-                "expect {\n" +
+                "expect \n{\n" +
                 "    timeout {\n" +
                 "        exit -1\n" +
                 "    }\n" +

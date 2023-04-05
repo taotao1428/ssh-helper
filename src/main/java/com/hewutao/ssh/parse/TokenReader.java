@@ -8,15 +8,20 @@ import java.util.LinkedList;
 public class TokenReader {
     private final Tokenizer tokenizer;
     private final LinkedList<Token> tokenBuf = new LinkedList<>();
+    private boolean hasNewLine = false;
 
     public TokenReader(Tokenizer tokenizer) {
         this.tokenizer = tokenizer;
     }
 
-    private Token nextNoComment() {
+    private Token nextToken() {
         Token token;
-        while ((token = tokenizer.next()).getType() == TokenType.COMMENT) {
+        // 过滤评论和多个换行
+        while ((token = tokenizer.next()).getType() == TokenType.COMMENT
+                || (hasNewLine && token.getType() == TokenType.NEW_LINE)) {
         }
+
+        hasNewLine = token.getType() == TokenType.NEW_LINE;
         return token;
     }
 
@@ -26,7 +31,7 @@ public class TokenReader {
 
     public Token peek(int i) {
         while (tokenBuf.size() < i) {
-            tokenBuf.addLast(nextNoComment());
+            tokenBuf.addLast(nextToken());
         }
         return tokenBuf.get(i - 1);
     }
@@ -35,8 +40,8 @@ public class TokenReader {
         return expectPeek(1, type);
     }
 
-    public Token expectPeek(TokenType type, String value) {
-        return expectPeek(1, type, value);
+    public Token expectKeyWordPeek(String value) {
+        return expectKeyWordPeek(1, value);
     }
 
     public Token expectPeek(int i, TokenType type) {
@@ -45,18 +50,18 @@ public class TokenReader {
         return token;
     }
 
-    public Token expectPeek(int i, TokenType type, String value) {
+    public Token expectKeyWordPeek(int i, String value) {
         Token token = peek(i);
-        check(token, type, value);
+        check(token, TokenType.KEYWORD);
+        checkKeywordValue(token, value);
         return token;
     }
-
 
     public Token next() {
         if (!tokenBuf.isEmpty()) {
             return tokenBuf.removeFirst();
         }
-        return nextNoComment();
+        return nextToken();
     }
 
     public Token expectNext(TokenType type) {
@@ -65,22 +70,22 @@ public class TokenReader {
         return token;
     }
 
-    public Token expectNext(TokenType type, String value) {
+    public Token expectNextKeyword(String value) {
         Token token = next();
-        check(token, type, value);
+        check(token, TokenType.KEYWORD);
+        checkKeywordValue(token, value);
         return token;
     }
 
-    private void check(Token token, TokenType type) {
+    public void check(Token token, TokenType type) {
         if (token.getType() != type) {
-            throw new IllegalStateException();
+            throw new IllegalStateException("expect type [" + type + "], but is [" + token.getType() + "], " + token.getStartPos().toPosString());
         }
     }
 
-    private void check(Token token, TokenType type, String value) {
-        check(token, type);
-        if (token.getValue().equals(value)) {
-            throw new IllegalStateException();
+    public void checkKeywordValue(Token token, String value) {
+        if (!token.getValue().equals(value)) {
+            throw new IllegalStateException("expect keyword [" + value + "], but is [" + token.getValue() + "], " + token.getStartPos().toPosString());
         }
     }
 }

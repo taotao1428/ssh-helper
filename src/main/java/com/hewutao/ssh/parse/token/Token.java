@@ -2,14 +2,16 @@ package com.hewutao.ssh.parse.token;
 
 public class Token {
     private final String value;
-    private final int startPos;
-    private final int endPos;
+    private final String rawValue;
+    private final PosDetail startPosDetail;
+    private final PosDetail endPosDetail;
     private final TokenType type;
 
-    public Token(String value, int startPos, int endPos, TokenType type) {
+    public Token(String value, String rawValue, PosDetail startPosDetail, PosDetail endPosDetail, TokenType type) {
         this.value = value;
-        this.startPos = startPos;
-        this.endPos = endPos;
+        this.rawValue = rawValue;
+        this.startPosDetail = startPosDetail;
+        this.endPosDetail = endPosDetail;
         this.type = type;
     }
 
@@ -17,12 +19,16 @@ public class Token {
         return value;
     }
 
-    public int getStartPos() {
-        return startPos;
+    public String getRawValue() {
+        return rawValue;
     }
 
-    public int getEndPos() {
-        return endPos;
+    public PosDetail getStartPos() {
+        return startPosDetail;
+    }
+
+    public PosDetail getEndPos() {
+        return endPosDetail;
     }
 
     public TokenType getType() {
@@ -33,8 +39,8 @@ public class Token {
     public String toString() {
         return "Token{" +
                 "value='" + value + '\'' +
-                ", startPos=" + startPos +
-                ", endPos=" + endPos +
+                ", startPos=" + startPosDetail +
+                ", endPos=" + endPosDetail +
                 ", type=" + type +
                 '}';
     }

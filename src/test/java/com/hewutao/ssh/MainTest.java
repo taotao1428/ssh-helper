@@ -163,6 +163,8 @@ public class MainTest {
 
     @Test
     public void test() {
-        System.out.println();
+        System.out.println(Arrays.toString(System.lineSeparator().getBytes(StandardCharsets.UTF_8)));
+        System.out.println((int) '\n');
+        System.out.println((int) '\r');
     }
 }

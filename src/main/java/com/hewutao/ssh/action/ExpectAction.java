@@ -21,7 +21,18 @@ public class ExpectAction implements Action {
     public void init(Environment env) {
         this.env = env;
 
+        boolean containTimeoutCase = false;
+
         for (Matcher matcher : cases.keySet()) {
+            if (matcher instanceof TimeoutMatcher) {
+                containTimeoutCase = true;
+            }
+            matcher.init(env);
+        }
+
+        if (!containTimeoutCase) {
+            TimeoutMatcher matcher = new TimeoutMatcher();
+            cases.put(matcher, new NoneAction());
             matcher.init(env);
         }
     }

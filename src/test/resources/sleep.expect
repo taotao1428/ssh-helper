@@ -1,0 +1,14 @@
+expect {
+    timeout {
+        exit -1
+    }
+    "parallels@" {
+    }
+}
+send 'echo $(date "+%Y-%m-%d %H:%M:%S")\n'
+expect "parallels@" {}
+
+sleep 4
+
+send 'echo $(date "+%Y-%m-%d %H:%M:%S")\n'
+expect "parallels@" {}

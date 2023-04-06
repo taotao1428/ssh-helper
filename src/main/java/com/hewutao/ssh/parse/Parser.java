@@ -6,6 +6,7 @@ import com.hewutao.ssh.action.ExitAction;
 import com.hewutao.ssh.action.ExpectAction;
 import com.hewutao.ssh.action.SendAction;
 import com.hewutao.ssh.action.SetTimeoutAction;
+import com.hewutao.ssh.action.SleepAction;
 import com.hewutao.ssh.action.matcher.Matcher;
 import com.hewutao.ssh.action.matcher.RegexMatcher;
 import com.hewutao.ssh.action.matcher.TimeoutMatcher;
@@ -37,6 +38,8 @@ public class Parser {
                     builder.add(parseSend(reader)); break;
                 case "expect":
                     builder.add(parseExpect(reader)); break;
+                case "sleep":
+                    builder.add(parseSleep(reader)); break;
                 case "exit":
                     builder.add(parseExit(reader)); break;
                 default:
@@ -57,6 +60,17 @@ public class Parser {
             return new SetTimeoutAction(value);
         } catch (NumberFormatException e) {
             throw new IllegalStateException("expect integer, but is [" + next2.getValue() + "], " + next2.getStartPos().toPosString());
+        }
+    }
+
+    private SleepAction parseSleep(TokenReader reader) {
+        Token next = reader.expectNext(TokenType.KEYWORD);
+        try {
+            int value = Integer.parseInt(next.getValue());
+            reader.expectNext(TokenType.NEW_LINE);
+            return new SleepAction(value);
+        } catch (NumberFormatException e) {
+            throw new IllegalStateException("expect integer, but is [" + next.getValue() + "], " + next.getStartPos().toPosString());
         }
     }
 

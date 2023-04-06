@@ -37,11 +37,6 @@ public class TokenizerTest {
 
     @Test
     public void parse() throws Exception {
-        String user = "parallels";
-        String host = "10.211.55.14";
-        String password = "hewutao12#$%";
-        String sudoPwd = password;
-
         String data = "expect {\n" +
                 "    timeout {\n" +
                 "        exit -1\n" +
@@ -75,6 +70,35 @@ public class TokenizerTest {
                 "    }\n" +
                 "}\n" +
                 "\n";
+
+        runData(data);
+    }
+
+    @Test
+    public void testSleep() throws Exception {
+        String data = "expect {\n" +
+                "    timeout {\n" +
+                "        exit -1\n" +
+                "    }\n" +
+                "    \"parallels@\" {\n" +
+                "    }\n" +
+                "}\n" +
+                "send 'echo $(date \"+%Y-%m-%d %H:%M:%S\")\\n'\n" +
+                "expect \"parallels@\" {}\n" +
+                "\n" +
+                "sleep 4\n" +
+                "\n" +
+                "send 'echo $(date \"+%Y-%m-%d %H:%M:%S\")\\n'\n" +
+                "expect \"parallels@\" {}";
+
+        runData(data);
+    }
+
+    private void runData(String data) throws Exception {
+        String user = "parallels";
+        String host = "10.211.55.14";
+        String password = "hewutao12#$%";
+        String sudoPwd = password;
 
         Tokenizer tokenizer = new Tokenizer(data);
         TokenReader reader = new TokenReader(tokenizer);

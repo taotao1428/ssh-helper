@@ -102,6 +102,10 @@ public class Parser {
                 matcher = new RegexMatcher(next.getValue()); break;
             case KEYWORD:
                 reader.checkKeywordValue(next, "timeout");
+                // 一个expect只能包含一个timeout
+                if (builder.containTimeoutCase()) {
+                    throw new IllegalStateException("multi timeout case, " + next.getStartPos().toPosString());
+                }
                 matcher = new TimeoutMatcher(); break;
             default:
                 throw new IllegalStateException("expect string or keyword, but is [" + next.getRawValue() + "], " + next.getStartPos().toPosString());

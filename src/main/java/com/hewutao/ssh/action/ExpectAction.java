@@ -1,5 +1,6 @@
 package com.hewutao.ssh.action;
 
+import com.hewutao.ssh.action.matcher.TimeoutMatcher;
 import com.hewutao.ssh.channel.Environment;
 import com.hewutao.ssh.channel.SshChannel;
 import com.hewutao.ssh.action.matcher.Matcher;
@@ -53,6 +54,15 @@ public class ExpectAction implements Action {
         public ExpectActionBuilder add(Matcher matcher, Action action) {
             this.cases.put(matcher, action);
             return this;
+        }
+
+        public boolean containTimeoutCase() {
+            for (Matcher matcher : cases.keySet()) {
+                if (matcher instanceof TimeoutMatcher) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public ExpectAction build() {

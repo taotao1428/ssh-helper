@@ -45,7 +45,7 @@ public class TokenizerTest {
         String data = "expect {\n" +
                 "    timeout {\n" +
                 "        exit -1\n" +
-                "    }\n" +
+                "    } \n" +
                 "    \"parallels@\" {\n" +
                 "    }\n" +
                 "}\n" +

@@ -1,15 +1,12 @@
 package com.hewutao.ssh.channel;
 
-import java.util.Deque;
-import java.util.LinkedList;
-
 public class Environment {
     private int timeout = 3;
 
     private boolean exited;
     private int exitCode;
 
-    private final Deque<SubEnv> subEnvDeque = new LinkedList<>();
+    private boolean expContinue;
 
     public boolean isExited() {
         return exited;
@@ -35,26 +32,13 @@ public class Environment {
         return timeout;
     }
 
-    public void pushSubEnv() {
-        subEnvDeque.push(new SubEnv());
+    public void setExpContinue(boolean expContinue) {
+        this.expContinue = expContinue;
     }
 
-    public SubEnv popSubEnv() {
-        return subEnvDeque.pop();
-    }
-
-    public void setExpectContinue(boolean expectContinue) {
-        SubEnv subEnv = subEnvDeque.peek();
-        subEnv.expectContinue = expectContinue;
-    }
-
-    public boolean getExpectContinue() {
-        SubEnv subEnv = subEnvDeque.peek();
-        return subEnv.expectContinue;
-    }
-
-
-    public static class SubEnv {
-        private boolean expectContinue;
+    public boolean getExpContinueAndClear() {
+        boolean val = expContinue;
+        expContinue = false;
+        return val;
     }
 }

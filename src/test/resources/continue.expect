@@ -1,0 +1,16 @@
+expect {
+    timeout {
+        exit -1
+    }
+    "parallels@" {
+        send "sudo su -\n"
+        expect "assword" {
+            send "hewutao12#$%\n"
+        }
+        exp_continue
+    }
+    "root@" {
+        send "date\n"
+    }
+}
+expect "root@" {}

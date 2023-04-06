@@ -39,20 +39,31 @@ public class ExpectAction implements Action {
 
     @Override
     public void exec(SshChannel client) throws Exception {
-        while (true) {
-            String data = client.receive();
-            for (Map.Entry<Matcher, Action> entry : cases.entrySet()) {
-                Matcher matcher = entry.getKey();
-                Action action = entry.getValue();
-                if (matcher.match(data)) {
-                    action.init(env);
-                    action.exec(client);
-                    client.clear();
-                    return;
+        do {
+            Action matchedAction = null;
+            while (true) {
+                String data = client.receive();
+
+                for (Map.Entry<Matcher, Action> entry : cases.entrySet()) {
+                    Matcher matcher = entry.getKey();
+                    Action action = entry.getValue();
+                    if (matcher.match(data)) {
+                        matchedAction = action;
+                        break;
+                    }
                 }
+
+                if (matchedAction != null) {
+                    break;
+                }
+                ThreadUtils.sleep(100);
             }
-            ThreadUtils.sleep(100);
-        }
+
+            matchedAction.init(env);
+            matchedAction.exec(client);
+            client.clear();
+
+        } while (env.getExpContinueAndClear());
     }
 
     public static ExpectActionBuilder builder() {

@@ -90,7 +90,7 @@ public class ReadableOutputStream extends OutputStream {
 
         lock.lock();
         try {
-            if (finished) {
+            if (finished && outputBuilder.length() == 0) {
                 return null;
             }
             String output =  outputBuilder.toString();

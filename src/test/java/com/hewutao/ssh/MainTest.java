@@ -7,7 +7,6 @@ import com.hewutao.ssh.action.NoneAction;
 import com.hewutao.ssh.action.SendAction;
 import com.hewutao.ssh.action.matcher.RegexMatcher;
 import com.hewutao.ssh.action.matcher.StringMatcher;
-import com.hewutao.ssh.action.matcher.TimeoutMatcher;
 import com.hewutao.ssh.channel.DefaultSshChannel;
 import com.hewutao.ssh.channel.Environment;
 import org.apache.sshd.client.SshClient;
@@ -25,7 +24,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
-import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -127,24 +125,24 @@ public class MainTest {
         channel.init();
 
         ExpectAction initExpectAction = ExpectAction.builder()
-                .add(new TimeoutMatcher(), new ExitAction(-1))
+                .setTimeoutAction(new ExitAction(-1))
                 .add(new RegexMatcher("parallels@"), new NoneAction())
                 .build();
 
         SendAction suAction = new SendAction("sudo su -\n");
 
         ExpectAction suExpectAction = ExpectAction.builder()
-                .add(new TimeoutMatcher(), new ExitAction(-1))
+                .setTimeoutAction(new ExitAction(-1))
                 .add(new StringMatcher("assword"), new SendAction(sudoPwd + "\n"))
                 .build();
 
         ExpectAction pwdExpectAction = ExpectAction.builder()
-                .add(new TimeoutMatcher(), new ExitAction(-1))
+                .setTimeoutAction(new ExitAction(-1))
                 .add(new RegexMatcher("root@"), new SendAction("ls -al\n"))
                 .build();
 
         ExpectAction lsExpectAction = ExpectAction.builder()
-                .add(new TimeoutMatcher(), new ExitAction(-1))
+                .setTimeoutAction(new ExitAction(-1))
                 .add(new RegexMatcher("root@"), new NoneAction())
                 .build();
 

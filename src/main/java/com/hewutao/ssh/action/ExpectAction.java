@@ -1,9 +1,8 @@
 package com.hewutao.ssh.action;
 
-import com.hewutao.ssh.action.matcher.TimeoutMatcher;
+import com.hewutao.ssh.action.matcher.Matcher;
 import com.hewutao.ssh.channel.Environment;
 import com.hewutao.ssh.channel.SshChannel;
-import com.hewutao.ssh.action.matcher.Matcher;
 import com.hewutao.ssh.utils.ThreadUtils;
 
 import java.util.LinkedHashMap;
@@ -12,27 +11,19 @@ import java.util.Map;
 public class ExpectAction implements Action {
     private final LinkedHashMap<Matcher, Action> cases;
     private Environment env;
+    private final Action timeoutAction;
+    private final Action eofAction;
 
-    public ExpectAction(LinkedHashMap<Matcher, Action> cases) {
+    public ExpectAction(LinkedHashMap<Matcher, Action> cases, Action timeoutAction, Action eofAction) {
         this.cases = cases;
+        this.timeoutAction = timeoutAction == null ? new NoneAction() : timeoutAction;
+        this.eofAction = eofAction;
     }
 
     @Override
     public void init(Environment env) {
         this.env = env;
-
-        boolean containTimeoutCase = false;
-
         for (Matcher matcher : cases.keySet()) {
-            if (matcher instanceof TimeoutMatcher) {
-                containTimeoutCase = true;
-            }
-            matcher.init(env);
-        }
-
-        if (!containTimeoutCase) {
-            TimeoutMatcher matcher = new TimeoutMatcher();
-            cases.put(matcher, new NoneAction());
             matcher.init(env);
         }
     }
@@ -41,8 +32,14 @@ public class ExpectAction implements Action {
     public void exec(SshChannel client) throws Exception {
         do {
             Action matchedAction = null;
+            long endTime = System.currentTimeMillis() + env.getTimeout() * 1000L;
             while (true) {
                 String data = client.receive();
+                // 匹配结尾
+                if (eofAction != null && data == null) {
+                    matchedAction = eofAction;
+                    break;
+                }
 
                 for (Map.Entry<Matcher, Action> entry : cases.entrySet()) {
                     Matcher matcher = entry.getKey();
@@ -52,10 +49,15 @@ public class ExpectAction implements Action {
                         break;
                     }
                 }
+                // 匹配超时
+                if (matchedAction == null && System.currentTimeMillis() >= endTime) {
+                    matchedAction = timeoutAction;
+                }
 
                 if (matchedAction != null) {
                     break;
                 }
+
                 ThreadUtils.sleep(100);
             }
 
@@ -72,23 +74,34 @@ public class ExpectAction implements Action {
 
     public static class ExpectActionBuilder {
         private final LinkedHashMap<Matcher, Action> cases = new LinkedHashMap<>();
+        private Action timeoutAction;
+        private Action eofAction;
 
         public ExpectActionBuilder add(Matcher matcher, Action action) {
             this.cases.put(matcher, action);
             return this;
         }
 
-        public boolean containTimeoutCase() {
-            for (Matcher matcher : cases.keySet()) {
-                if (matcher instanceof TimeoutMatcher) {
-                    return true;
-                }
-            }
-            return false;
+        public ExpectActionBuilder setTimeoutAction(Action timeoutAction) {
+            this.timeoutAction = timeoutAction;
+            return this;
+        }
+
+        public ExpectActionBuilder setEofAction(Action eofAction) {
+            this.eofAction = eofAction;
+            return this;
+        }
+
+        public Action getEofAction() {
+            return eofAction;
+        }
+
+        public Action getTimeoutAction() {
+            return timeoutAction;
         }
 
         public ExpectAction build() {
-            return new ExpectAction(cases);
+            return new ExpectAction(cases, timeoutAction, eofAction);
         }
     }
 }

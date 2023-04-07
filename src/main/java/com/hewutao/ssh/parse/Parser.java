@@ -10,7 +10,6 @@ import com.hewutao.ssh.action.SetTimeoutAction;
 import com.hewutao.ssh.action.SleepAction;
 import com.hewutao.ssh.action.matcher.Matcher;
 import com.hewutao.ssh.action.matcher.RegexMatcher;
-import com.hewutao.ssh.action.matcher.TimeoutMatcher;
 import com.hewutao.ssh.parse.token.Token;
 import com.hewutao.ssh.parse.token.TokenType;
 
@@ -118,24 +117,45 @@ public class Parser {
     }
 
     private void parseExpectCase(TokenReader reader, Token next, ExpectAction.ExpectActionBuilder builder) {
-        Matcher matcher;
+        Matcher matcher = null;
+        boolean isTimeout = false;
+        boolean isEof = false;
         switch (next.getType()) {
             case STRING:
                 matcher = new RegexMatcher(next.getValue()); break;
             case KEYWORD:
-                reader.checkKeywordValue(next, "timeout");
-                // 一个expect只能包含一个timeout
-                if (builder.containTimeoutCase()) {
-                    throw new IllegalStateException("multi timeout case, " + next.getStartPos().toPosString());
+                String keyword = next.getValue();
+                switch (keyword) {
+                    case "timeout":
+                        // 一个expect只能包含一个timeout
+                        if (builder.getTimeoutAction() != null) {
+                            throw new IllegalStateException("multi timeout case, " + next.getStartPos().toPosString());
+                        }
+                        isTimeout = true;
+                        break;
+                    case "eof":
+                        if (builder.getEofAction() != null) {
+                            throw new IllegalStateException("multi eof case, " + next.getStartPos().toPosString());
+                        }
+                        isEof = true;
+                        break;
+                    default:
+                        throw new IllegalStateException("unknown expect case [" + keyword + "], " + next.getStartPos().toPosString());
                 }
-                matcher = new TimeoutMatcher(); break;
+                break;
             default:
                 throw new IllegalStateException("expect string or keyword, but is [" + next.getRawValue() + "], " + next.getStartPos().toPosString());
         }
         reader.expectNext(TokenType.LEFT_BRACE);
         Action action = parseBatch(reader);
 
-        builder.add(matcher, action);
+        if (isTimeout) {
+            builder.setTimeoutAction(action);
+        } else if (isEof) {
+            builder.setEofAction(action);
+        } else {
+            builder.add(matcher, action);
+        }
     }
 
     private SendAction parseSend(TokenReader reader) {

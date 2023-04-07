@@ -116,6 +116,34 @@ public class TokenizerTest {
         runData(data);
     }
 
+    @Test
+    public void testAll() throws Exception {
+        String data = "expect {\n" +
+                "    timeout {\n" +
+                "        exit -1\n" +
+                "    }\n" +
+                "    \"parallels@\" {\n" +
+                "        send \"sudo su -\\n\"\n" +
+                "        expect \"assword\" {\n" +
+                "            send \"hewutao12#$%\\n\"\n" +
+                "        }\n" +
+                "        exp_continue\n" +
+                "    }\n" +
+                "    \"root@\" {\n" +
+                "        send \"date\\n\"\n" +
+                "    }\n" +
+                "}\n" +
+                "expect \"root@\" {}\n" +
+                "\n" +
+                "send \"exit\\n\"\n" +
+                "expect \"parallels@\" {}\n" +
+                "\n" +
+                "send \"exit\\n\"\n" +
+                "expect eof {}";
+
+        runData(data);
+    }
+
     private void runData(String data) throws Exception {
         String user = "parallels";
         String host = "10.211.55.14";

@@ -66,7 +66,7 @@ sleep 5
 ```
 
 
-## 示例
+## expect示例
 ```text
 expect {
     timeout {
@@ -84,4 +84,62 @@ expect {
     }
 }
 expect "root@" {}
+
+send "exit\n"
+expect "parallels@" {}
+
+send "exit\n"
+expect eof {}
+```
+
+## 代码示例
+
+```java
+    public void run() throws Exception {
+        String data = "expect {\n" +
+                "    timeout {\n" +
+                "        exit -1\n" +
+                "    }\n" +
+                "    \"parallels@\" {\n" +
+                "        send \"sudo su -\\n\"\n" +
+                "        expect \"assword\" {\n" +
+                "            send \"pwdpwdpwd\\n\"\n" +
+                "        }\n" +
+                "        exp_continue\n" +
+                "    }\n" +
+                "    \"root@\" {\n" +
+                "        send \"date\\n\"\n" +
+                "    }\n" +
+                "}\n" +
+                "expect \"root@\" {}\n" +
+                "\n" +
+                "send \"exit\\n\"\n" +
+                "expect \"parallels@\" {}\n" +
+                "\n" +
+                "send \"exit\\n\"\n" +
+                "expect eof {}";
+
+        String user = "parallels";
+        String host = "10.xxx.xxx.xxx";
+        String password = "pwdpwdpwd";
+
+        // 1. 解析expect的字符串
+        Tokenizer tokenizer = new Tokenizer(data);
+        TokenReader reader = new TokenReader(tokenizer);
+        Parser parser = new Parser();
+        Action action = parser.parse(reader);
+
+        // 2. 创建sshChannel
+        DefaultSshChannel channel = new DefaultSshChannel(host, user, password);
+        channel.init();
+
+        // 3. 与ssh进行交互
+        Environment env = new Environment();
+        action.init(env);
+        action.exec(channel);
+        channel.close();
+
+        // 4. 输出交互过程中输出
+        System.out.println(channel.allReceive());
+    }
 ```

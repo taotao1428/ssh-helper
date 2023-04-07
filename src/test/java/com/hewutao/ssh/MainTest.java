@@ -19,9 +19,13 @@ import org.apache.sshd.client.future.OpenFuture;
 import org.apache.sshd.client.session.ClientSession;
 import org.junit.Test;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStreamReader;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
+import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -166,5 +170,33 @@ public class MainTest {
         System.out.println(Arrays.toString(System.lineSeparator().getBytes(StandardCharsets.UTF_8)));
         System.out.println((int) '\n');
         System.out.println((int) '\r');
+    }
+
+    @Test
+    public void test2() throws Exception {
+        PipedInputStream in = new PipedInputStream();
+        PipedOutputStream out = new PipedOutputStream(in);
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new BufferedInputStream(in)));
+
+        byte[] bytes = "hello world!哈哈".getBytes(StandardCharsets.UTF_8);
+
+        out.write(bytes);
+
+        out.close();
+
+        char[] buf = new char[1024];
+        int read = reader.read(buf);
+
+        System.out.println(new String(buf, 0, read));
+
+
+        read = reader.read(buf);
+
+        System.out.println(new String(buf, 0, read));
+//        out.flush();
+
+
+
     }
 }

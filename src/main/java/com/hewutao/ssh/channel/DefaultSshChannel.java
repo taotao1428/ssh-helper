@@ -27,7 +27,7 @@ public class DefaultSshChannel implements SshChannel {
     private PipedInputStream in;
 
     private String allReceived = "";
-    private String received = "";
+    private int readPos;
 
     public DefaultSshChannel(String host, String user, String password, int port) {
         this.host = host;
@@ -81,10 +81,12 @@ public class DefaultSshChannel implements SshChannel {
 
     @Override
     public String receive() throws Exception {
-        String data = new String(byteOut.read(), StandardCharsets.UTF_8);
-        received += data;
-        allReceived += data;
-        return received;
+        String receive = byteOut.readString();
+        if (receive == null) {
+            return null;
+        }
+        allReceived += receive;
+        return allReceived.substring(readPos);
     }
 
     @Override
@@ -94,7 +96,7 @@ public class DefaultSshChannel implements SshChannel {
 
     @Override
     public void clear() throws Exception {
-        received = "";
+        readPos = allReceived.length();
     }
 
     @Override

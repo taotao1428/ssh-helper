@@ -1,7 +1,7 @@
 package com.hewutao.ssh.channel;
 
 public class Environment {
-    private int timeout = 3;
+    private int timeout = 10;
 
     private boolean exited;
     private int exitCode;

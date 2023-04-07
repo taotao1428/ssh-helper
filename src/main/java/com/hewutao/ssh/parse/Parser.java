@@ -86,6 +86,7 @@ public class Parser {
 
         switch (next.getType()) {
             case STRING:
+            case KEYWORD:
                 return parseOneExpect(reader, next);
             case LEFT_BRACE:
                 return parseMultiExpect(reader, next);

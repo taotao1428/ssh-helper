@@ -21,9 +21,12 @@ import org.junit.Test;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
+import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -196,5 +199,26 @@ public class MainTest {
 
 
 
+    }
+
+    @Test
+    public void subprocess() throws Exception {
+//        ProcessBuilder processBuilder = new ProcessBuilder();
+        Process process = Runtime.getRuntime().exec("/bin/zsh");
+//        Process process = Runtime.getRuntime().exec("java -version");
+//        process.waitFor();
+        OutputStream outputStream = process.getOutputStream();
+        outputStream.write("ls -al\n".getBytes(StandardCharsets.UTF_8));
+        outputStream.flush();
+        InputStream inputStream = process.getInputStream();
+        Reader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+        char[] buf = new char[1024];
+        int len;
+        while ((len = reader.read(buf)) >= 0) {
+            System.out.print(new String(buf, 0, len));
+        }
+
+        System.out.println(process.isAlive());
     }
 }
